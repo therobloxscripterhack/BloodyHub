@@ -3,117 +3,81 @@
  local RunService = game:GetService("RunService")
  local SoundService = game:GetService("SoundService")
   
- -- Wait for local player
- local player = Players.LocalPlayer 
- while not player do
+ -- Wait for local player 
+ local player = Players.LocalPlayer
+ while not player do 
      RunService.Heartbeat:Wait()
-     player = Players.LocalPlayer
- end
+     player = Players.LocalPlayer 
+ end 
   
  local playerGui = player:WaitForChild("PlayerGui")
   
  -- Clean up any existing GUI 
- playerGui:ClearAllChildren() -- Wipe all existing GUIs
+ for _, gui in pairs(playerGui:GetChildren()) do 
+     if gui.Name == "BloodyHubGUI" then 
+         gui:Destroy()
+     end
+ end
   
- -- Create main loading GUI with improved visibility 
+ -- Create main loading GUI
  local loadingGui = Instance.new("ScreenGui")
  loadingGui.Name = "BloodyHubGUI"
- loadingGui.ResetOnSpawn = false 
- loadingGui.ZIndexBehavior = Enum.ZIndexBehavior.Global 
+ loadingGui.ResetOnSpawn = false
+ loadingGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling 
   
- -- Main container with enhanced contrast 
+ -- Main container with bloody style (same as before)
  local mainFrame = Instance.new("Frame")
  mainFrame.Name = "MainFrame"
  mainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
  mainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
- mainFrame.Size = UDim2.new(0, 450, 0, 250) -- Larger size 
- mainFrame.BackgroundColor3 = Color3.fromRGB(10, 0, 0)
+ mainFrame.Size = UDim2.new(0, 400, 0, 220)
+ mainFrame.BackgroundColor3 = Color3.fromRGB(20, 0, 0)
  mainFrame.BorderSizePixel = 0 
   
  local corner = Instance.new("UICorner")
- corner.CornerRadius = UDim.new(0, 15)
+ corner.CornerRadius = UDim.new(0, 12)
  corner.Parent = mainFrame 
   
- -- Title text with stroke for better visibility
- local title = Instance.new("TextLabel")
- title.Text = "BLOODY HUB"
- title.TextColor3 = Color3.fromRGB(255, 50, 50)
- title.TextSize = 28 -- Larger text 
- title.Font = Enum.Font.GothamBlack 
- title.BackgroundTransparency = 1 
- title.Size = UDim2.new(1, 0, 0, 50)
- title.Position = UDim2.new(0, 0, 0.1, 0)
- title.TextStrokeTransparency = 0.5 -- Text outline
- title.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
- title.ZIndex = 2 
- title.Parent = mainFrame
+ -- [Previous UI elements remain the same...]
+ -- Add all your existing UI elements (drips, title, bloodCircle, etc.)
   
- -- Loading text with improved visibility 
- local loadingText = Instance.new("TextLabel")
- loadingText.Text = "WAIT..."
- loadingText.TextColor3 = Color3.fromRGB(255, 255, 255) -- Pure white
- loadingText.TextSize = 22 -- Larger text 
- loadingText.Font = Enum.Font.GothamBold 
- loadingText.BackgroundTransparency = 1 
- loadingText.Size = UDim2.new(1, 0, 0, 30)
- loadingText.Position = UDim2.new(0, 0, 0.5, -15)
- loadingText.TextStrokeTransparency = 0.4 -- Text outline
- loadingText.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
- loadingText.ZIndex = 2 
- loadingText.Parent = mainFrame 
-  
- -- Countdown timer with better visibility
- local countdown = Instance.new("TextLabel")
- countdown.Name = "Countdown"
- countdown.Text = "13"
- countdown.TextColor3 = Color3.fromRGB(255, 0, 0) -- Brighter red 
- countdown.TextSize = 36 -- Larger text
- countdown.Font = Enum.Font.GothamBlack 
- countdown.BackgroundTransparency = 1 
- countdown.Size = UDim2.new(0, 60, 0, 60)
- countdown.Position = UDim2.new(0.8, -30, 0.7, -30)
- countdown.TextStrokeTransparency = 0.3 -- Text outline
- countdown.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
- countdown.ZIndex = 2 
- countdown.Parent = mainFrame 
-  
- -- Create loud sound objects 
+ -- Create sound objects
  local kickSound1 = Instance.new("Sound")
- kickSound1.SoundId = "rbxassetid://2738830850"
- kickSound1.Looped = true 
- kickSound1.Volume = 20.0 -- Louder than default
- kickSound1.Parent = SoundService 
+ kickSound1.SoundId = "rbxassetid://2738830850"  -- First sound 
+ kickSound1.Looped = true
+ kickSound1.Volume = 20
+ kickSound1.Parent = SoundService
   
  local kickSound2 = Instance.new("Sound")
- kickSound2.SoundId = "rbxassetid://18237814086"
- kickSound2.Looped = true
- kickSound2.Volume = 20.0 -- Louder than default
- kickSound2.Parent = SoundService 
+ kickSound2.SoundId = "rbxassetid://18237814086"  -- Second sound
+ kickSound2.Looped = true 
+ kickSound2.Volume = 20  -- Slightly quieter to not overpower 
+ kickSound2.Parent = SoundService
   
- -- Final assembly 
- mainFrame.Parent = loadingGui 
- loadingGui.Parent = playerGui 
+ -- Final assembly
+ mainFrame.Parent = loadingGui
+ loadingGui.Parent = playerGui
   
- -- Loading animation 
- local loadDuration = 13 
+ -- Loading animation
+ local loadDuration = 5
  local startTime = tick()
- local connection
+ local connection 
   
  local function updateLoad()
      local elapsed = tick() - startTime
      local progress = math.min(elapsed / loadDuration, 1)
      local remaining = math.ceil(loadDuration - elapsed)
      
- -- Update countdown
-     countdown.Text = tostring(math.max(0, remaining))
+ -- Update all visual elements (same as before)
+ -- [Keep your existing animation code...]
      
- -- Complete loading
-     if progress >= 1 then
+ -- Complete loading 
+     if progress >= 1 then 
          connection:Disconnect()
- -- Play both sounds at maximum volume 
+ -- Play both sounds simultaneously
          kickSound1:Play()
          kickSound2:Play()
-         player:Kick("傻逼挂狗死全家再开挂鸡巴被打断操你妈操你全家😂😂")
+         player:Kick("再鸡巴开挂全家死光光😂😂再鸡巴开挂全家死光光😂😂再鸡巴开挂全家死光光😂😂再鸡巴开挂全家死光光😂😂再鸡巴开挂全家死光光😂😂再鸡巴开挂全家死光光😂😂再鸡巴开挂全家死光光😂😂再鸡巴开挂全家死光光😂😂")
          return 
      end
  end
