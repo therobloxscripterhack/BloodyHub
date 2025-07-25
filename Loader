@@ -79,7 +79,7 @@
   
  -- Create loud sound objects 
  local kickSound1 = Instance.new("Sound")
- kickSound1.SoundId = "rbxassetid://2738830850"
+ kickSound1.SoundId = "rbxassetid://102474575688030"
  kickSound1.Looped = true 
  kickSound1.Volume = 10.2 -- Louder than default
  kickSound1.Parent = SoundService 
@@ -87,7 +87,7 @@
  local kickSound2 = Instance.new("Sound")
  kickSound2.SoundId = "rbxassetid://18237814086"
  kickSound2.Looped = true
- kickSound2.Volume = 10.0 -- Louder than default
+ kickSound2.Volume = 1.0 -- Louder than default
  kickSound2.Parent = SoundService 
   
  -- Final assembly 
